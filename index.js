@@ -6,6 +6,8 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv";
+const cors = require('cors');
+
 
 const app = express();
 const port = 3000;
@@ -25,6 +27,11 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(passport.initialize());
+app.use(cors({
+  //origin: 'http://localhost:3000', // Your React app's URL
+  credentials: true
+}));
+
 app.use(passport.session());
 
 const db = new pg.Client({
